@@ -18,7 +18,7 @@
 function ilkiniDon(stringArray, callback) {
   return callback(stringArray[0])
 }
-console.log('örnek görev:', ilkiniDon(['as','sa'],function(metin){return metin+metin}));
+console.log('örnek görev:', ilkiniDon(['as', 'sa'], function (metin) { return metin + metin }));
 
 // Başlangıç Challenge'ı Sonu
 
@@ -30,17 +30,23 @@ console.log('örnek görev:', ilkiniDon(['as','sa'],function(metin){return metin
   Aşağıdaki skor1 ve skor2 kodlarını inceleyiniz ve aşağıdaki soruları altına not alarak cevaplayın
   
   1. skor1 ve skor2 arasındaki fark nedir?
+Skor1 bir fonksiyona dönüştü. console.log(skor1()); dediğimizde skor fonksiyonun içinde defined edilmesine rağmen
+closure olması sebebiyle fonksiyon döndürülebilmektedir. Aynı zamanda başka skorlar tanımlandığında, onları da dönebilmektedir
+Ancak skor2 tek bir skor dönebilmesi sebebiyle iki takım için iki ayrı function tanımlaması gerektirir.
   
   2. Hangisi bir closure kullanmaktadır? Nasıl tarif edebilirsin? (yarınki derste öğreneceksin :) )
-  
+  Skor1'in bulunduu function, closuredur. const skor2=skorArtirici(); diyerek skor2 tanımlayıp
+  console.log(skor1());
+  console.log(skor2()); diyerek iki skoru da döndürebiliriz.
   3. Hangi durumda skor1 tercih edilebilir? Hangi durumda skor2 daha mantıklıdır?
+  Skor bir karşılaştırmalı durumlarda kullanılırken, skor2 tek bir skor döndürmek için kullanılması daha mantıklı olacaktır.
 */
 
 // skor1 kodları
 function skorArtirici() {
   let skor = 0;
   return function skorGuncelle() {
-   return skor++;
+    return skor++;
   }
 }
 
@@ -64,9 +70,12 @@ Aşağıdaki takimSkoru() fonksiyonununda aşağıdakileri yapınız:
 Not: Bu fonskiyon, aşağıdaki diğer görevler için de bir callback fonksiyonu olarak da kullanılacak
 */
 
-function takimSkoru(/*Kodunuzu buraya yazınız*/){
-    /*Kodunuzu buraya yazınız*/
+function takimSkoru() {
+    return 10 + Math.floor(Math.random() * 16);
+  
 }
+console.log("G2");
+console.log(takimSkoru());
 
 
 
@@ -84,11 +93,22 @@ Aşağıdaki macSonucu() fonksiyonununda aşağıdakileri yapınız:
   "EvSahibi": 92,
   "KonukTakim": 80
 }
-*/ 
+*/
 
-function macSonucu(/*Kodunuzu buraya yazınız*/){
-  /*Kodunuzu buraya yazınız*/
-}
+function macSonucu(teamScore, ceyrekSayisi) {
+
+let evSkor=0;
+let konukSkor=0;
+for(let i=0;i<ceyrekSayisi;i++){
+  evSkor += teamScore();
+  konukSkor +=teamScore();
+  
+} return {"EvSahibi":evSkor,"KonukTakim":konukSkor};
+
+
+} takimSkoru();
+console.log("G3");
+console.log(macSonucu(takimSkoru, 4));
 
 
 
@@ -109,10 +129,19 @@ Aşağıdaki periyotSkoru() fonksiyonununda aşağıdakileri yapınız:
   */
 
 
-function periyotSkoru(/*Kodunuzu buraya yazınız*/) {
-  /*Kodunuzu buraya yazınız*/
+function periyotSkoru(teamScore) {
+let oyuncuSkoru={};
+oyuncuSkoru["EvSahibi"]=teamScore();
+oyuncuSkoru["KonukTakim"]=teamScore();
+return oyuncuSkoru;
 
+/*let evSkor = teamScore();
+let konukSkor = teamScore();
+return {EvSahibi: evSkor, KonukTakim: konukSkor};*/
 }
+//takimSkoru();
+console.log("G4");
+console.log(periyotSkoru(takimSkoru));
 
 
 /* Zorlayıcı Görev 5: skorTabelasi() 
@@ -145,16 +174,43 @@ MAÇ UZAR ise skorTabelasi(periyotSkoru,takimSkoru,4)
 ]
 ] */
 // NOTE: Bununla ilgili bir test yoktur. Eğer logladığınız sonuçlar yukarıdakine benziyor ise tmamlandı sayabilirsiniz.
-
-function skorTabelasi(/*Kodunuzu buraya yazınız*/) {
-  /*Kodunuzu buraya yazınız*/
+ /* function yeniTakimSkoru() {}
+return Math.floor(Math.random() * 2);
+}
+*/
+function skorTabelasi(){}//periodScore, endTeamScore,ceyrek) {
+ /* let macDurum=[];
+  for(let i=0;i<ceyrek;i++){
+    macDurum.push(`${i+1}. Periyot: Ev Sahibi ${periodScore(endTeamScore()).EvSahibi} - Konuk Takım ${periodScore(endTeamScore()).KonukTakim}`);
+  evSkor += periodScore.EvSahibi;
+  konukSkor +=periodScore.KonukTakim;
+  }
+  let extesion=0;
+  while(evSkor===konukSkor){
+    extension++;
+const  macDurum=periodScore(endTeamScore);
+evSkor += periodScore.EvSahibi;
+  konukSkor +=periodScore.KonukTakim;
+  macDurum.push(`${extension}. Uzatma: Ev Sahibi ${periodScore(endTeamScore()).EvSahibi}- Konuk Takım ${periodScore(endTeamScore()).KonukTakim}`);
+  
 }
 
+  const result=`Maç Sonucu: Ev Sahibi ${evSkor} - Konuk Takım ${konukSkor}`;
+  macDurum.push(`Maç Sonucu: ${macSonucu()}`);
+  return macDurum;
+} 
+
+takimSkoru();
+periyotSkoru();
+
+
+console.log(skorTabelasi(periyotSkoru,yeniTakimSkoru,4));
+*/
 
 
 
 /* Aşağıdaki satırları lütfen değiştirmeyiniz*/
-function sa(){
+function sa() {
   console.log('Kodlar çalışıyor');
   return 'as';
 }
